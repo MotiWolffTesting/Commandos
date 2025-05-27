@@ -7,7 +7,8 @@ namespace Commandos
     {
         // Changing name to private
         private string name;
-        public string codeName;
+        // Changing to property
+        public string codeName { get; set; }
         public string[] tools;
         public string status;
 
@@ -65,7 +66,7 @@ namespace Commandos
             Console.WriteLine("Someone is trying to reveal your name but the name is protected!");
         }
 
-        public void DisplayWeaponInfo()
+        public void DisplayInfo()
         {
             Console.WriteLine($"=== Soldier Details ===");
             Console.WriteLine($"Name: {name}");

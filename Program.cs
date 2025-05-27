@@ -6,22 +6,14 @@
         {
             Commando agent = new Commando("Moti", "The Young Wolf");
 
-            // Accessing public fields
-            Console.WriteLine(agent.codeName);
-            Console.WriteLine(agent.status);
-            Console.WriteLine(agent.tools[0]);
+            // Calling property
+            Console.WriteLine($"Current CodeName: {agent.codeName}");
 
-            // Console.WriteLine(agent.name); // Will result in a compilation error
+            agent.DisplayInfo();
 
-            // Check SayName
-            Console.WriteLine($"Result: {agent.SayName("GENERAL")}");
-            Console.WriteLine($"Result: {agent.SayName("COLONEL")}");
-            Console.WriteLine($"Result: {agent.SayName("SERGEANT")}");
-
-            agent.IntroduceToGeneral();
-
-            agent.TryToRevealName();
-
+            // Changing code name
+            agent.codeName = "The Old Wolf";
+            Console.WriteLine($"New code name: {agent.codeName}");
 
         }
     }
