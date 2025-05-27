@@ -38,7 +38,7 @@ namespace Commandos
         // Attack Method
         public void Attack()
         {
-            Console.WriteLine($"Commando with {codeName} code-name is attacking!");
+
         }
 
         // SayName Method
@@ -75,5 +75,32 @@ namespace Commandos
             Console.WriteLine($"Tools: {string.Join(", ", tools)}");
             Console.WriteLine($"==================");
         }
+    }
+
+
+    public class AirCommando : Commando
+    {
+
+        public AirCommando(string name, string codeName) : base(name, codeName) { }
+
+        // Parachute Method
+        public void Parachute()
+        {
+            Console.WriteLine($"Air Commando {codeName} is parachuting!");
+        }
+
+    }
+
+
+    public class SeaCommando : Commando
+    {
+        public SeaCommando(string name, string codeName) : base(name, codeName) { }
+
+        public void Swim()
+        {
+            Console.WriteLine($"Sea Commando {codeName} is diving under water!");
+
+        }
+
     }
 }
