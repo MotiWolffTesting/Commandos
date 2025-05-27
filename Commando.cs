@@ -5,7 +5,8 @@ namespace Commandos
     // Basic Commando class
     public class Commando
     {
-        public string name;
+        // Changing name to private
+        private string name;
         public string codeName;
         public string[] tools;
         public string status;
@@ -37,6 +38,31 @@ namespace Commandos
         public void Attack()
         {
             Console.WriteLine($"Commando with {codeName} code-name is attacking!");
+        }
+
+        // SayName Method
+        public string SayName(string commanderRank)
+        {
+            switch (commanderRank.ToUpper())
+            {
+                case "GENERAL":
+                    return $"Real name: {name}";
+                case "COLONEL":
+                    return $"Code-Name: {codeName}";
+                default:
+                    return "Access denied - Classified intel";
+            }
+        }
+
+        // Another method to use private field
+        public void IntroduceToGeneral()
+        {
+            Console.WriteLine($"Report to general: Soldier {name} with codename {codeName} reporting for duty!");
+        }
+
+        public void TryToRevealName()
+        {
+            Console.WriteLine("Someone is trying to reveal your name but the name is protected!");
         }
 
         public void DisplayWeaponInfo()
