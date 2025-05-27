@@ -1,0 +1,69 @@
+
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+.vscode/
+*.user
+*.suo
+*.userprefs
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Rider
+.idea/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# VS Code settings
+.vscode/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# JetBrains Rider
+.idea/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+*.swp
+*.swo
+
+# DotCover
+*.dotCover
+
+# NUnit
+TestResult.xml
+nunit-*.xml
+
+# Coverlet Coverage
+coverage*.json
+coverage*.xml
+coverage*.info
+lcov-report/
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Package managers
+*.nupkg
+packages/
