@@ -36,7 +36,7 @@ namespace Commandos
         }
 
         // Attack Method
-        public void Attack()
+        public virtual void Attack()
         {
 
         }
@@ -89,6 +89,11 @@ namespace Commandos
             Console.WriteLine($"Air Commando {codeName} is parachuting!");
         }
 
+        public override void Attack()
+        {
+            Console.WriteLine($"Air Strike is ongoing!");
+        }
+
     }
 
 
@@ -100,6 +105,11 @@ namespace Commandos
         {
             Console.WriteLine($"Sea Commando {codeName} is diving under water!");
 
+        }
+
+        public override void Attack()
+        {
+            Console.WriteLine($"Sea Strike is ongoing!");
         }
 
     }
