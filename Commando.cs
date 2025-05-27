@@ -16,7 +16,7 @@ namespace Commandos
             this.name = name;
             this.codeName = codeName;
             this.tools = new string[5] { "Chisel", "Bag", "Rope", "Water Tank", "Hammer" };
-            this.status = "";
+            this.status = "Standing";
         }
 
         // Walk Method
@@ -37,6 +37,16 @@ namespace Commandos
         public void Attack()
         {
             Console.WriteLine($"Commando with {codeName} code-name is attacking!");
+        }
+
+        public void DisplayWeaponInfo()
+        {
+            Console.WriteLine($"=== Soldier Details ===");
+            Console.WriteLine($"Name: {name}");
+            Console.WriteLine($"Codename: {codeName}");
+            Console.WriteLine($"Status: {status}");
+            Console.WriteLine($"Tools: {string.Join(", ", tools)}");
+            Console.WriteLine($"==================");
         }
     }
 }
