@@ -1,4 +1,6 @@
-﻿namespace Commandos
+﻿using System;
+
+namespace Commandos
 {
     class Program
     {
@@ -7,7 +9,7 @@
             Console.WriteLine("=== Commandos Project ===\n");
 
             // Creating polymorphic 
-            Console.WriteLine("Crearting an array of 3 soldiers...");
+            Console.WriteLine("Creating an array of 3 soldiers...");
             Commando regularCommando = new Commando("Moti Wolff", "The Young Wolf");
             AirCommando airCommando = new AirCommando("Sternie Wolff", "The Wifey");
             SeaCommando seaCommando = new SeaCommando("Wolff's Future", "Future");
@@ -20,9 +22,10 @@
             Console.WriteLine($"Array Length: {commandoArray.Length}");
             Console.WriteLine($"Array Type: {commandoArray.GetType()}\n");
 
-            foreach (Commando soldier in commandoArray)
+            // Using them as ICombatants
+            foreach (ICombatant soldier in commandoArray)
             {
-                Console.Write($"Soldier {soldier.codeName}: ");
+                Console.Write($"Soldier {((Commando)soldier).CodeName}: ");
                 soldier.Attack();
             }
 
@@ -31,22 +34,22 @@
 
             // Basic Functionality Check for each type
 
-            // Walk Check
-            foreach (Commando soldier in commandoArray)
+            // Walk Check - using them as IMovable
+            foreach (IMovable soldier in commandoArray)
             {
                 soldier.Walk();
             }
 
-            // Hide Check
-            foreach (Commando soldier in commandoArray)
+            // Hide Check - using them as IMovable
+            foreach (IMovable soldier in commandoArray)
             {
                 soldier.Hide();
             }
 
-            // Accessing private fields via SayName
-            foreach (Commando soldier in commandoArray)
+            // Accessing private fields via SayName - using them as IIdentifiable
+            foreach (IIdentifiable soldier in commandoArray)
             {
-                Console.WriteLine($"\n{soldier.codeName}:");
+                Console.WriteLine($"\n{((Commando)soldier).CodeName}:");
                 Console.WriteLine($"  GENERAL access: {soldier.SayName("GENERAL")}");
                 Console.WriteLine($"  COLONEL access: {soldier.SayName("COLONEL")}");
                 Console.WriteLine($"  SERGEANT access: {soldier.SayName("SERGEANT")}");
@@ -57,66 +60,65 @@
 
             for (int i = 0; i < commandoArray.Length; i++)
             {
-                originalNames[i] = commandoArray[i].codeName;
-                commandoArray[i].codeName = $"New{originalNames[i]}";
-                Console.WriteLine($"Changed: {originalNames[i]} → {commandoArray[i].codeName}");
+                originalNames[i] = commandoArray[i].CodeName;
+                commandoArray[i].CodeName = $"New{originalNames[i]}";
+                Console.WriteLine($"Changed: {originalNames[i]} → {commandoArray[i].CodeName}");
             }
 
             // Returning original names
             for (int i = 0; i < commandoArray.Length; i++)
             {
-                commandoArray[i].codeName = originalNames[i];
+                commandoArray[i].CodeName = originalNames[i];
             }
 
             // Check Special Functionalities
             foreach (Commando soldier in commandoArray)
             {
-                if (soldier is AirCommando airSoldier)
+                if (soldier is IAirMovable airSoldier)
                 {
-                    Console.Write($"{soldier.codeName} (Air): ");
+                    Console.Write($"{soldier.CodeName} (Air): ");
                     airSoldier.Parachute();
                 }
-                else if (soldier is SeaCommando seaSoldier)
+                else if (soldier is ISeaMovable seaSoldier)
                 {
-                    Console.Write($"{soldier.codeName} (Sea): ");
+                    Console.Write($"{soldier.CodeName} (Sea): ");
                     seaSoldier.Swim();
                 }
                 else
                 {
-                    Console.WriteLine($"{soldier.codeName} (Regular): No special abilities");
+                    Console.WriteLine($"{soldier.CodeName} (Regular): No special abilities");
                 }
             }
 
-
             // Creating Weapons & Using
-            Weapon[] weapons = new Weapon[3];
+            IWeapon[] weapons = new IWeapon[3];
             weapons[0] = new Weapon("M4A1", "Colt", 30);
             weapons[1] = new Weapon("AK-47", "Kalashnikov", 25);
             weapons[2] = new Weapon("MP5", "H&K", 20);
 
+            // Assigning weapons to soldiers
             for (int i = 0; i < commandoArray.Length; i++)
             {
-                Console.WriteLine($"\n{commandoArray[i].codeName} recieves {weapons[i].name}:");
+                commandoArray[i].Weapon = weapons[i];
+                Console.WriteLine($"\n{commandoArray[i].CodeName} receives {weapons[i].Name}:");
                 weapons[i].DisplayWeaponInfo();
 
-                Console.WriteLine($"{commandoArray[i].codeName} shooting:");
+                Console.WriteLine($"{commandoArray[i].CodeName} shooting:");
                 weapons[i].Shoot();
                 weapons[i].Shoot();
             }
 
-            // Displaying info
-            foreach (Commando soldier in commandoArray)
+            // Displaying info - using them as IDisplayable
+            foreach (IDisplayable soldier in commandoArray)
             {
                 soldier.DisplayInfo();
                 Console.WriteLine($"Type: {soldier.GetType().Name}");
             }
 
-            foreach (Weapon weapon in weapons)
+            foreach (IWeapon weapon in weapons)
             {
                 weapon.DisplayWeaponInfo();
             }
-
-
         }
     }
 }

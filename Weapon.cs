@@ -2,40 +2,45 @@ using System;
 
 namespace Commandos
 {
-    // Weapon class
-    public class Weapon
+    // Weapon class implementing IWeapon interface
+    public class Weapon : IWeapon
     {
-        public string name;
-        public string manufacturer;
-        public int bulletCount;
+        // Encapsulating fields with properties
+        private string _name;
+        private string _manufacturer;
+        private int _bulletCount;
+
+        public string Name => _name;
+        public string Manufacturer => _manufacturer;
+        public int BulletCount => _bulletCount;
 
         public Weapon(string name, string manufacturer, int bulletCount)
         {
-            this.name = name;
-            this.manufacturer = manufacturer;
-            this.bulletCount = bulletCount;
+            _name = name;
+            _manufacturer = manufacturer;
+            _bulletCount = bulletCount;
         }
 
         // Shoot Method
         public void Shoot()
         {
-            if (bulletCount > 0)
+            if (_bulletCount > 0)
             {
-                bulletCount--;
-                Console.WriteLine($"{name} is shooting!! Remaining bullets: {bulletCount}");
+                _bulletCount--;
+                Console.WriteLine($"{_name} is shooting!! Remaining bullets: {_bulletCount}");
             }
             else
             {
-                Console.WriteLine($"{name} has no bullets.");
+                Console.WriteLine($"{_name} has no bullets.");
             }
         }
 
         public void DisplayWeaponInfo()
         {
             Console.WriteLine($"=== Weapon Details ===");
-            Console.WriteLine($"Name: {name}");
-            Console.WriteLine($"Manufacturer: {manufacturer}");
-            Console.WriteLine($"Bullets: {bulletCount}");
+            Console.WriteLine($"Name: {_name}");
+            Console.WriteLine($"Manufacturer: {_manufacturer}");
+            Console.WriteLine($"Bullets: {_bulletCount}");
             Console.WriteLine($"=================");
         }
     }

@@ -2,54 +2,62 @@ using System;
 
 namespace Commandos
 {
-    // Basic Commando class
-    public class Commando
+    // Basic Commando class implementing multiple interfaces
+    public class Commando : IMovable, ICombatant, IIdentifiable, IDisplayable
     {
-        // Changing name to private
-        private string name;
-        // Changing to property
-        public string codeName { get; set; }
-        public string[] tools;
-        public string status;
+        // Encapsulating fields
+        private string _name;
+        private string[] _tools;
+        private string _status;
+
+        // Property with proper naming convention
+        public string CodeName { get; set; }
+
+        // Equipment property - making it nullable to fix constructor issue
+        private IWeapon? _weapon;
+        public IWeapon? Weapon
+        {
+            get => _weapon;
+            set => _weapon = value;
+        }
 
         // Constructor
         public Commando(string name, string codeName)
         {
-            this.name = name;
-            this.codeName = codeName;
-            this.tools = new string[5] { "Chisel", "Bag", "Rope", "Water Tank", "Hammer" };
-            this.status = "Standing";
+            _name = name;
+            CodeName = codeName;
+            _tools = new string[5] { "Chisel", "Bag", "Rope", "Water Tank", "Hammer" };
+            _status = "Standing";
         }
 
-        // Walk Method
+        // IMovable implementation
         public void Walk()
         {
-            status = "Walking";
-            Console.WriteLine($"Soldier {codeName} is walking.");
+            _status = "Walking";
+            Console.WriteLine($"Soldier {CodeName} is walking.");
         }
 
-        // Hide Method
         public void Hide()
         {
-            status = "Hiding";
-            Console.WriteLine($"Soldier {codeName} is hiding.");
+            _status = "Hiding";
+            Console.WriteLine($"Soldier {CodeName} is hiding.");
         }
 
-        // Attack Method
+        // ICombatant implementation
         public virtual void Attack()
         {
-
+            Console.WriteLine($"Regular attack by {CodeName}");
         }
 
-        // SayName Method
+        // IIdentifiable implementation
         public string SayName(string commanderRank)
         {
             switch (commanderRank.ToUpper())
             {
                 case "GENERAL":
-                    return $"Real name: {name}";
+                    return $"Real name: {_name}";
                 case "COLONEL":
-                    return $"Code-Name: {codeName}";
+                    return $"Code-Name: {CodeName}";
                 default:
                     return "Access denied - Classified intel";
             }
@@ -58,7 +66,7 @@ namespace Commandos
         // Another method to use private field
         public void IntroduceToGeneral()
         {
-            Console.WriteLine($"Report to general: Soldier {name} with codename {codeName} reporting for duty!");
+            Console.WriteLine($"Report to general: Soldier {_name} with codename {CodeName} reporting for duty!");
         }
 
         public void TryToRevealName()
@@ -66,51 +74,55 @@ namespace Commandos
             Console.WriteLine("Someone is trying to reveal your name but the name is protected!");
         }
 
+        // IDisplayable implementation
         public void DisplayInfo()
         {
             Console.WriteLine($"=== Soldier Details ===");
-            Console.WriteLine($"Name: {name}");
-            Console.WriteLine($"Codename: {codeName}");
-            Console.WriteLine($"Status: {status}");
-            Console.WriteLine($"Tools: {string.Join(", ", tools)}");
+            Console.WriteLine($"Name: {_name}");
+            Console.WriteLine($"Codename: {CodeName}");
+            Console.WriteLine($"Status: {_status}");
+            Console.WriteLine($"Tools: {string.Join(", ", _tools)}");
+            if (_weapon != null)
+            {
+                Console.WriteLine($"Weapon: {_weapon.Name} ({_weapon.BulletCount} bullets)");
+            }
             Console.WriteLine($"==================");
         }
     }
 
-
-    public class AirCommando : Commando
+    // AirCommando adds IAirMovable to interface implementations
+    public class AirCommando : Commando, IAirMovable
     {
-
         public AirCommando(string name, string codeName) : base(name, codeName) { }
 
-        // Parachute Method
+        // IAirMovable implementation
         public void Parachute()
         {
-            Console.WriteLine($"Air Commando {codeName} is parachuting!");
+            Console.WriteLine($"Air Commando {CodeName} is parachuting!");
         }
 
+        // Override from ICombatant implementation
         public override void Attack()
         {
             Console.WriteLine($"Air Strike is ongoing!");
         }
-
     }
 
-
-    public class SeaCommando : Commando
+    // SeaCommando adds ISeaMovable to interface implementations
+    public class SeaCommando : Commando, ISeaMovable
     {
         public SeaCommando(string name, string codeName) : base(name, codeName) { }
 
+        // ISeaMovable implementation
         public void Swim()
         {
-            Console.WriteLine($"Sea Commando {codeName} is diving under water!");
-
+            Console.WriteLine($"Sea Commando {CodeName} is diving under water!");
         }
 
+        // Override from ICombatant implementation
         public override void Attack()
         {
             Console.WriteLine($"Sea Strike is ongoing!");
         }
-
     }
 }
